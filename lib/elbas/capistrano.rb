@@ -7,6 +7,9 @@ def autoscale(groupname, properties = {})
   include Elbas::Logger
 
   set :aws_autoscale_group_name, groupname
+  group_names = fetch(:group_names, [])
+  group_names << groupname
+  set :group_names, group_names
 
   asg = Elbas::AWS::AutoscaleGroup.new groupname
   instances = asg.instances.running
