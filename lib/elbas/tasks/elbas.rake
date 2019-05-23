@@ -16,7 +16,7 @@ namespace :elbas do
     group_names.each do |group_name|
       asg = Elbas::AWS::AutoscaleGroup.new group_name
 
-      info "Creating AMI from a running instance..."
+      info "Creating AMI from a running instance in autoscaling group #{group_name}..."
       ami = Elbas::AWS::AMI.create asg.instances.running.sample
       ami.tag 'ELBAS-Deploy-group', asg.name
       ami.tag 'ELBAS-Deploy-id', env.timestamp.to_i.to_s
